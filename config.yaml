@@ -1,0 +1,49 @@
+type_eval:
+  # --- Step 0: Trajectory Segmentation ---
+  segmenter:
+    wrap_high: 250
+    wrap_low: 5
+    gap_threshold_ms: 500
+    min_traj_frames: 20
+    spatial_split_enabled: false
+    max_track_speed: 50.0
+    pos_jump_threshold: 5.0
+
+  # --- Step 1: Track Age Gate ---
+  min_track_age: 10
+
+  # --- Step 3: Speed Gate (Car/Truck only) ---
+  speed_gate:
+    enabled: true
+    types: [1, 2]
+    threshold_kmh: 30.0
+
+  # --- Step 4: Duration Filter ---
+  duration:
+    1: 5.0
+    2: 5.0
+    3: 2.0
+    4: 2.0
+    7: 5.0
+
+  # --- Step 5: Measured Oscillation Labeling ---
+  oscillation:
+    window_s: 2.0
+    min_flips: 3
+
+  # --- Step 6: Transition Judgment ---
+  judgment:
+    transition_tolerance: 0
+    eval_range_enabled: true
+    eval_range:
+      flr: 100.0
+      rlr: 50.0
+      fr: 100.0
+      rr: 50.0
+      unk: 100.0
+
+  # --- Output ---
+  output:
+    plot_dpi: 100
+    plot_size: [900, 350]
+    embed_curves: true
